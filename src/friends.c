@@ -3,7 +3,7 @@
 #include "pay.h"
 
 #define NUM_MENU_SECTIONS 2
-#define NUM_FIRST_MENU_ITEMS 3
+#define NUM_FIRST_MENU_ITEMS 4
 #define NUM_SECOND_MENU_ITEMS 1
 
 static Window *window;
@@ -28,39 +28,59 @@ static int hit_count = 0;
 
 enum {
     AKEY_NAME,
-    AKEY_TEXT,
+    AKEY_NAME2,
+    AKEY_NAME3,
+    AKEY_NAME4,
 };
 
+Tuple *text_tuple;
+Tuple *text_tuple2;
+Tuple *text_tuple3;
+Tuple *text_tuple4;
 
- void out_sent_handler(DictionaryIterator *sent, void *context) {
+
+static void out_sent_handler(DictionaryIterator *sent, void *context) {
    // outgoing message was delivered
  }
 
 
- void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, void *context) {
+static void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, void *context) {
    // outgoing message failed
  }
 
-void in_received_handler(DictionaryIterator *iter, void *context) {
+static void in_received_handler(DictionaryIterator *iter, void *context) {
 
           // Check for fields you expect to receive
-          Tuple *text_tuple = dict_find(iter, AKEY_NAME);
+          // first is usually (always?) me
+          text_tuple = dict_find(iter, AKEY_NAME);
+          text_tuple2 = dict_find(iter, AKEY_NAME2);
+          text_tuple3 = dict_find(iter, AKEY_NAME3);
+          text_tuple4 = dict_find(iter, AKEY_NAME4);
 
+          /*
           // Act on the found fields received
           if (text_tuple) {
             APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
           }
+            if (text_tuple2) {
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple2->value->cstring);
+          }   
+          if (text_tuple3) {
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple3->value->cstring);
+          }
+          */
+          post_data();
 
 }
 
 
- void in_dropped_handler(AppMessageResult reason, void *context) {
+static void in_dropped_handler(AppMessageResult reason, void *context) {
    // incoming message dropped
  }
 // You can capture when the user selects a menu icon with a menu item select callback
 static void menu_select_callback(int index, void *ctx) {
   // Here we just change the subtitle to a literal string
-  first_menu_items[index].subtitle = "You've hit select here!";
+  //first_menu_items[index].subtitle = "You've hit select here!";
   // Mark the layer to be updated
   layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
   //payAmount(first_menu_items[index]);
@@ -89,10 +109,8 @@ static void special_select_callback(int index, void *ctx) {
   layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
 }
 
-// This initializes the menu upon window load
-static void window_load(Window *window) {
-  // We'll have to load the icon before we can use it
-  menu_icon_image = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MENU_ICON_1);
+void post_data (void){
+    menu_icon_image = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MENU_ICON_1);
 
   // Although we already defined NUM_FIRST_MENU_ITEMS, you can define
   // an int as such to easily change the order of menu items later
@@ -101,43 +119,50 @@ static void window_load(Window *window) {
   // This is an example of how you'd set a simple menu item
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     // You should give each menu item a title and callback
-    .title = "First Item",
+    .title = text_tuple->value->cstring,
     .callback = menu_select_callback,
   };
   // The menu items appear in the order saved in the menu items array
   first_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = "Second Item",
+    .title = text_tuple2->value->cstring,
     // You can also give menu items a subtitle
-    .subtitle = "Here's a subtitle",
+    //.subtitle = "Here's a subtitle",
     .callback = menu_select_callback,
   };
   first_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = "Third Item",
-    .subtitle = "This has an icon",
+    .title = text_tuple3->value->cstring,
+    //.subtitle = "This has an icon",
     .callback = menu_select_callback,
     // This is how you would give a menu item an icon
-    .icon = menu_icon_image,
+    //.icon = menu_icon_image,
   };
-
+    first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = text_tuple4->value->cstring,
+    //.subtitle = "This has an icon",
+    .callback = menu_select_callback,
+    // This is how you would give a menu item an icon
+    //.icon = menu_icon_image,
+  };
+/*
   // This initializes the second section
   second_menu_items[0] = (SimpleMenuItem){
     .title = "Special Item",
     // You can use different callbacks for your menu items
     .callback = special_select_callback,
   };
-
+*/
   // Bind the menu items to the corresponding menu sections
   menu_sections[0] = (SimpleMenuSection){
     .title = "          Pay Someone!",
     .num_items = NUM_FIRST_MENU_ITEMS,
     .items = first_menu_items,
   };
-  menu_sections[1] = (SimpleMenuSection){
+  /*menu_sections[1] = (SimpleMenuSection){
     // Menu sections can also have titles as well
     .title = "Yet Another Section",
     .num_items = NUM_SECOND_MENU_ITEMS,
     .items = second_menu_items,
-  };
+  };*/
 
   // Now we prepare to initialize the simple menu layer
   // We need the bounds to specify the simple menu layer's viewport size
@@ -150,6 +175,11 @@ static void window_load(Window *window) {
 
   // Add it to the window for display
   layer_add_child(window_layer, simple_menu_layer_get_layer(simple_menu_layer));
+}
+// This initializes the menu upon window load
+static void window_load(Window *window) {
+  // We'll have to load the icon before we can use it
+
 }
 
 // Deinitialize resources on window unload that were initialized on window load
@@ -164,19 +194,12 @@ void window_unload(Window *window) {
 
   window = window_create();
 
-  // Setup the window handlers
-  window_set_window_handlers(window, (WindowHandlers) {
-    .load = window_load,
-    .unload = window_unload,
-  });   
-    window_stack_push(window, true /* Animated */);
-
    app_message_register_inbox_received(in_received_handler);
    app_message_register_inbox_dropped(in_dropped_handler);
    app_message_register_outbox_sent(out_sent_handler);
    app_message_register_outbox_failed(out_failed_handler);
-   
-   const uint32_t inbound_size = 64;
+
+   const uint32_t inbound_size = 124;
    const uint32_t outbound_size = 64;
    app_message_open(inbound_size, outbound_size);
 
@@ -188,6 +211,14 @@ void window_unload(Window *window) {
 
     // send message
     app_message_outbox_send();
+
+  // Setup the window handlers
+  window_set_window_handlers(window, (WindowHandlers) {
+    .load = window_load,
+    .unload = window_unload,
+  });   
+    window_stack_push(window, true /* Animated */);
+
 
    
  }
