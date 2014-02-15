@@ -1,8 +1,8 @@
 {
   "uuid": "69a53987-379e-4ae7-a3c2-d08e5ffe8511",
-  "shortName": "Simple Menu",
-  "longName": "Simple Menu",
-  "companyName": "Pebble Technology",
+  "shortName": "pebmo",
+  "longName": "pebmo",
+  "companyName": "Andy Hadjigeorgiou",
   "versionCode": 2,
   "versionLabel": "2.0.0",
   "watchapp": {

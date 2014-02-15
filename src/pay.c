@@ -8,8 +8,15 @@ static struct AmountUi {
 } ui;
 
 static void window_load(Window *window) {
+	    APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", "test");
+
   Layer *window_layer = window_get_root_layer(ui.window);
   GRect bounds = layer_get_bounds(window_layer);
+
+  ui.name_text = text_layer_create((GRect) {
+        .origin = { 0, 0 },
+        .size = { bounds.size.w, 64 }
+      });
 
   text_layer_set_text(ui.name_text, "Parker");
   text_layer_set_text_alignment(ui.name_text, GTextAlignmentCenter);
@@ -22,8 +29,10 @@ static void window_unload(Window *window) {
 }
 
 void pay_amount(void) {
+
   const bool animated = true;
   window_stack_push(ui.window, animated);
+
 }
 
 

@@ -1,7 +1,7 @@
 Archive member included because of file (symbol)
 
 /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                              src/feature_simple_menu_layer.c.8.o (app_event_loop)
+                              src/pebmo.c.8.o (app_event_loop)
 
 Discarded input sections
 
@@ -17,12 +17,12 @@ Discarded input sections
  .jcr           0x0000000000000000        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
  .tm_clone_table
                 0x0000000000000000        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
- .text          0x0000000000000000        0x0 src/feature_simple_menu_layer.c.8.o
- .bss           0x0000000000000000        0x0 src/feature_simple_menu_layer.c.8.o
+ .text          0x0000000000000000        0x0 src/friends.c.8.o
+ .bss           0x0000000000000000        0x0 src/friends.c.8.o
  .text          0x0000000000000000        0x0 src/pay.c.8.o
  .bss           0x0000000000000000        0x0 src/pay.c.8.o
- .text.pay_amount
-                0x0000000000000000       0x10 src/pay.c.8.o
+ .text          0x0000000000000000        0x0 src/pebmo.c.8.o
+ .bss           0x0000000000000000        0x0 src/pebmo.c.8.o
  .text          0x0000000000000000        0x0 appinfo.auto.c.8.o
  .bss           0x0000000000000000        0x0 appinfo.auto.c.8.o
  .bss           0x0000000000000000        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
@@ -457,8 +457,6 @@ Discarded input sections
  .text.strncat  0x0000000000000000        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
  .text.strncmp  0x0000000000000000        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
  .text.strncpy  0x0000000000000000        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
- .text.text_layer_create
-                0x0000000000000000        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
  .text.text_layer_get_content_size
                 0x0000000000000000        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
  .text.text_layer_get_text
@@ -583,8 +581,9 @@ Linker script and memory map
 
 LOAD /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crti.o
 LOAD /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
-LOAD src/feature_simple_menu_layer.c.8.o
+LOAD src/friends.c.8.o
 LOAD src/pay.c.8.o
+LOAD src/pebmo.c.8.o
 LOAD appinfo.auto.c.8.o
 LOAD /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a
 START GROUP
@@ -599,201 +598,216 @@ LOAD /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none
  .pbl_header    0x0000000000000000       0x82 appinfo.auto.c.8.o
                 0x0000000000000000                __pbl_app_info
 
-.text           0x0000000000000084      0x613
+.text           0x0000000000000084      0x688
  *(.text)
  .text          0x0000000000000084       0x14 /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
  *(.text.*)
  .text.out_sent_handler
-                0x0000000000000098        0x2 src/feature_simple_menu_layer.c.8.o
+                0x0000000000000098        0x2 src/friends.c.8.o
                 0x0000000000000098                out_sent_handler
  .text.out_failed_handler
-                0x000000000000009a        0x2 src/feature_simple_menu_layer.c.8.o
+                0x000000000000009a        0x2 src/friends.c.8.o
                 0x000000000000009a                out_failed_handler
  .text.in_dropped_handler
-                0x000000000000009c        0x2 src/feature_simple_menu_layer.c.8.o
+                0x000000000000009c        0x2 src/friends.c.8.o
                 0x000000000000009c                in_dropped_handler
  *fill*         0x000000000000009e        0x2 
  .text.in_received_handler
-                0x00000000000000a0       0x28 src/feature_simple_menu_layer.c.8.o
+                0x00000000000000a0       0x28 src/friends.c.8.o
  .text.window_load
-                0x00000000000000c8      0x10c src/feature_simple_menu_layer.c.8.o
+                0x00000000000000c8      0x10c src/friends.c.8.o
  .text.special_select_callback
-                0x00000000000001d4       0x68 src/feature_simple_menu_layer.c.8.o
+                0x00000000000001d4       0x68 src/friends.c.8.o
  .text.menu_select_callback
-                0x000000000000023c       0x30 src/feature_simple_menu_layer.c.8.o
+                0x000000000000023c       0x34 src/friends.c.8.o
  .text.window_unload
-                0x000000000000026c       0x24 src/feature_simple_menu_layer.c.8.o
-                0x000000000000026c                window_unload
- .text.startup.main
-                0x0000000000000290       0xbc src/feature_simple_menu_layer.c.8.o
-                0x0000000000000290                main
+                0x0000000000000270       0x24 src/friends.c.8.o
+                0x0000000000000270                window_unload
+ .text.friends_init
+                0x0000000000000294       0xa8 src/friends.c.8.o
+                0x0000000000000294                friends_init
+ .text.friends_deinit
+                0x000000000000033c       0x10 src/friends.c.8.o
+                0x000000000000033c                friends_deinit
  .text.window_unload
                 0x000000000000034c       0x10 src/pay.c.8.o
  .text.window_load
-                0x000000000000035c       0x5c src/pay.c.8.o
- .text.pay_init
-                0x00000000000003b8       0x44 src/pay.c.8.o
-                0x00000000000003b8                pay_init
- .text.pay_deinit
+                0x000000000000035c       0xa0 src/pay.c.8.o
+ .text.pay_amount
                 0x00000000000003fc       0x10 src/pay.c.8.o
-                0x00000000000003fc                pay_deinit
+                0x00000000000003fc                pay_amount
+ .text.pay_init
+                0x000000000000040c       0x44 src/pay.c.8.o
+                0x000000000000040c                pay_init
+ .text.pay_deinit
+                0x0000000000000450       0x10 src/pay.c.8.o
+                0x0000000000000450                pay_deinit
+ .text.startup.main
+                0x0000000000000460       0x1a src/pebmo.c.8.o
+                0x0000000000000460                main
+ *fill*         0x000000000000047a        0x2 
  .text.app_event_loop
-                0x000000000000040c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x000000000000040c                app_event_loop
- .text.app_log  0x0000000000000418        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000418                app_log
+                0x000000000000047c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x000000000000047c                app_event_loop
+ .text.app_log  0x0000000000000488        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000488                app_log
  .text.app_message_open
-                0x0000000000000424        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000424                app_message_open
+                0x0000000000000494        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000494                app_message_open
  .text.dict_find
-                0x0000000000000430        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000430                dict_find
+                0x00000000000004a0        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004a0                dict_find
  .text.dict_write_tuplet
-                0x000000000000043c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x000000000000043c                dict_write_tuplet
+                0x00000000000004ac        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004ac                dict_write_tuplet
  .text.fonts_get_system_font
-                0x0000000000000448        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000448                fonts_get_system_font
+                0x00000000000004b8        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004b8                fonts_get_system_font
  .text.gbitmap_create_with_resource
-                0x0000000000000454        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000454                gbitmap_create_with_resource
+                0x00000000000004c4        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004c4                gbitmap_create_with_resource
  .text.gbitmap_destroy
-                0x0000000000000460        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000460                gbitmap_destroy
+                0x00000000000004d0        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004d0                gbitmap_destroy
  .text.layer_add_child
-                0x000000000000046c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x000000000000046c                layer_add_child
+                0x00000000000004dc        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004dc                layer_add_child
  .text.layer_get_bounds
-                0x0000000000000478        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000478                layer_get_bounds
+                0x00000000000004e8        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004e8                layer_get_bounds
  .text.layer_get_frame
-                0x0000000000000484        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000484                layer_get_frame
+                0x00000000000004f4        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000004f4                layer_get_frame
  .text.layer_mark_dirty
-                0x0000000000000490        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000490                layer_mark_dirty
- .text.memset   0x000000000000049c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x000000000000049c                memset
+                0x0000000000000500        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000500                layer_mark_dirty
+ .text.memset   0x000000000000050c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x000000000000050c                memset
  .text.simple_menu_layer_create
-                0x00000000000004a8        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004a8                simple_menu_layer_create
+                0x0000000000000518        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000518                simple_menu_layer_create
  .text.simple_menu_layer_destroy
-                0x00000000000004b4        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004b4                simple_menu_layer_destroy
+                0x0000000000000524        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000524                simple_menu_layer_destroy
  .text.simple_menu_layer_get_layer
-                0x00000000000004c0        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004c0                simple_menu_layer_get_layer
+                0x0000000000000530        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000530                simple_menu_layer_get_layer
+ .text.text_layer_create
+                0x000000000000053c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x000000000000053c                text_layer_create
  .text.text_layer_destroy
-                0x00000000000004cc        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004cc                text_layer_destroy
+                0x0000000000000548        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000548                text_layer_destroy
  .text.text_layer_get_layer
-                0x00000000000004d8        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004d8                text_layer_get_layer
+                0x0000000000000554        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000554                text_layer_get_layer
  .text.text_layer_set_font
-                0x00000000000004e4        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004e4                text_layer_set_font
+                0x0000000000000560        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000560                text_layer_set_font
  .text.text_layer_set_text
-                0x00000000000004f0        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004f0                text_layer_set_text
+                0x000000000000056c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x000000000000056c                text_layer_set_text
  .text.text_layer_set_text_alignment
-                0x00000000000004fc        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x00000000000004fc                text_layer_set_text_alignment
+                0x0000000000000578        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000578                text_layer_set_text_alignment
  .text.window_create
-                0x0000000000000508        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000508                window_create
+                0x0000000000000584        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000584                window_create
  .text.window_destroy
-                0x0000000000000514        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000514                window_destroy
+                0x0000000000000590        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x0000000000000590                window_destroy
  .text.window_get_root_layer
-                0x0000000000000520        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000520                window_get_root_layer
+                0x000000000000059c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x000000000000059c                window_get_root_layer
  .text.window_set_window_handlers
-                0x000000000000052c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x000000000000052c                window_set_window_handlers
+                0x00000000000005a8        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005a8                window_set_window_handlers
  .text.window_stack_push
-                0x0000000000000538        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000538                window_stack_push
+                0x00000000000005b4        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005b4                window_stack_push
  .text.app_message_outbox_begin
-                0x0000000000000544        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000544                app_message_outbox_begin
+                0x00000000000005c0        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005c0                app_message_outbox_begin
  .text.app_message_outbox_send
-                0x0000000000000550        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000550                app_message_outbox_send
+                0x00000000000005cc        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005cc                app_message_outbox_send
  .text.app_message_register_inbox_dropped
-                0x000000000000055c        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x000000000000055c                app_message_register_inbox_dropped
+                0x00000000000005d8        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005d8                app_message_register_inbox_dropped
  .text.app_message_register_inbox_received
-                0x0000000000000568        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000568                app_message_register_inbox_received
+                0x00000000000005e4        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005e4                app_message_register_inbox_received
  .text.app_message_register_outbox_failed
-                0x0000000000000574        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000574                app_message_register_outbox_failed
+                0x00000000000005f0        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005f0                app_message_register_outbox_failed
  .text.app_message_register_outbox_sent
-                0x0000000000000580        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
-                0x0000000000000580                app_message_register_outbox_sent
+                0x00000000000005fc        0xc /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000005fc                app_message_register_outbox_sent
  *(.rodata)
- .rodata        0x000000000000058c       0x10 src/feature_simple_menu_layer.c.8.o
+ .rodata        0x0000000000000608       0x10 src/friends.c.8.o
  *(.rodata*)
  .rodata.str1.1
-                0x000000000000059c       0xd9 src/feature_simple_menu_layer.c.8.o
-                                         0xe6 (size before relaxing)
+                0x0000000000000618       0xc7 src/friends.c.8.o
+                                         0xd4 (size before relaxing)
  .rodata.str1.1
-                0x0000000000000675       0x22 src/pay.c.8.o
+                0x00000000000006df       0x2d src/pay.c.8.o
+                                         0x36 (size before relaxing)
 
-.glue_7         0x0000000000000698        0x0
+.glue_7         0x000000000000070c        0x0
  .glue_7        0x0000000000000000        0x0 linker stubs
 
-.glue_7t        0x0000000000000698        0x0
+.glue_7t        0x000000000000070c        0x0
  .glue_7t       0x0000000000000000        0x0 linker stubs
 
-.vfp11_veneer   0x0000000000000698        0x0
+.vfp11_veneer   0x000000000000070c        0x0
  .vfp11_veneer  0x0000000000000000        0x0 linker stubs
 
-.v4_bx          0x0000000000000698        0x0
+.v4_bx          0x000000000000070c        0x0
  .v4_bx         0x0000000000000000        0x0 linker stubs
 
-.iplt           0x0000000000000698        0x0
+.iplt           0x000000000000070c        0x0
  .iplt          0x0000000000000000        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
 
-.rel.dyn        0x0000000000000698        0x0
+.rel.dyn        0x000000000000070c        0x0
  .rel.iplt      0x0000000000000000        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
 
-.data           0x0000000000000698       0x10
+.data           0x000000000000070c       0x10
  *(.data)
- .data          0x0000000000000698        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crti.o
- .data          0x0000000000000698        0x4 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
-                0x0000000000000698                __dso_handle
- .data          0x000000000000069c        0xc src/feature_simple_menu_layer.c.8.o
- .data          0x00000000000006a8        0x0 src/pay.c.8.o
- .data          0x00000000000006a8        0x0 appinfo.auto.c.8.o
- .data          0x00000000000006a8        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
- .data          0x00000000000006a8        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
- .data          0x00000000000006a8        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtn.o
+ .data          0x000000000000070c        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crti.o
+ .data          0x000000000000070c        0x4 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
+                0x000000000000070c                __dso_handle
+ .data          0x0000000000000710        0xc src/friends.c.8.o
+ .data          0x000000000000071c        0x0 src/pay.c.8.o
+ .data          0x000000000000071c        0x0 src/pebmo.c.8.o
+ .data          0x000000000000071c        0x0 appinfo.auto.c.8.o
+ .data          0x000000000000071c        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+ .data          0x000000000000071c        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
+ .data          0x000000000000071c        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtn.o
  *(.data.*)
 
-.igot.plt       0x00000000000006a8        0x0
+.igot.plt       0x000000000000071c        0x0
  .igot.plt      0x0000000000000000        0x0 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
 
-.bss            0x00000000000006a8       0x78
+.bss            0x000000000000071c       0x78
  *(.bss)
  *(.bss.*)
  .bss.simple_menu_layer
-                0x00000000000006a8        0x4 src/feature_simple_menu_layer.c.8.o
+                0x000000000000071c        0x4 src/friends.c.8.o
  .bss.special_flag
-                0x00000000000006ac        0x1 src/feature_simple_menu_layer.c.8.o
- *fill*         0x00000000000006ad        0x3 
+                0x0000000000000720        0x1 src/friends.c.8.o
+ *fill*         0x0000000000000721        0x3 
  .bss.first_menu_items
-                0x00000000000006b0       0x30 src/feature_simple_menu_layer.c.8.o
+                0x0000000000000724       0x30 src/friends.c.8.o
  .bss.menu_icon_image
-                0x00000000000006e0        0x4 src/feature_simple_menu_layer.c.8.o
+                0x0000000000000754        0x4 src/friends.c.8.o
  .bss.menu_sections
-                0x00000000000006e4       0x18 src/feature_simple_menu_layer.c.8.o
+                0x0000000000000758       0x18 src/friends.c.8.o
  .bss.second_menu_items
-                0x00000000000006fc       0x10 src/feature_simple_menu_layer.c.8.o
+                0x0000000000000770       0x10 src/friends.c.8.o
  .bss.hit_count
-                0x000000000000070c        0x4 src/feature_simple_menu_layer.c.8.o
- .bss.window    0x0000000000000710        0x4 src/feature_simple_menu_layer.c.8.o
- .bss.ui        0x0000000000000714        0xc src/pay.c.8.o
+                0x0000000000000780        0x4 src/friends.c.8.o
+ .bss.window    0x0000000000000784        0x4 src/friends.c.8.o
+ .bss.ui        0x0000000000000788        0xc src/pay.c.8.o
 
 DISCARD
  libc.a(*)
@@ -809,65 +823,78 @@ OUTPUT(/Users/mike/Desktop/pebmo2/build/pebble-app.elf elf32-littlearm)
  .ARM.attributes
                 0x0000000000000019       0x29 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
  .ARM.attributes
-                0x0000000000000042       0x33 src/feature_simple_menu_layer.c.8.o
+                0x0000000000000042       0x33 src/friends.c.8.o
  .ARM.attributes
                 0x0000000000000075       0x33 src/pay.c.8.o
  .ARM.attributes
-                0x00000000000000a8       0x33 appinfo.auto.c.8.o
+                0x00000000000000a8       0x33 src/pebmo.c.8.o
  .ARM.attributes
-                0x00000000000000db       0x21 /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
+                0x00000000000000db       0x33 appinfo.auto.c.8.o
  .ARM.attributes
-                0x00000000000000fc       0x29 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
+                0x000000000000010e       0x21 /Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/lib/libpebble.a(tmpHP0PEBpebble.o)
  .ARM.attributes
-                0x0000000000000125       0x19 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtn.o
+                0x000000000000012f       0x29 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
+ .ARM.attributes
+                0x0000000000000158       0x19 /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtn.o
 
 .comment        0x0000000000000000       0x4e
  .comment       0x0000000000000000       0x4e /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
                                          0x4f (size before relaxing)
- .comment       0x0000000000000000       0x4f src/feature_simple_menu_layer.c.8.o
+ .comment       0x0000000000000000       0x4f src/friends.c.8.o
  .comment       0x0000000000000000       0x4f src/pay.c.8.o
+ .comment       0x0000000000000000       0x4f src/pebmo.c.8.o
  .comment       0x0000000000000000       0x4f appinfo.auto.c.8.o
  .comment       0x0000000000000000       0x4f /Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
 
-.debug_info     0x0000000000000000     0x1909
- .debug_info    0x0000000000000000     0x102b src/feature_simple_menu_layer.c.8.o
- .debug_info    0x000000000000102b      0x5b6 src/pay.c.8.o
- .debug_info    0x00000000000015e1      0x328 appinfo.auto.c.8.o
+.debug_info     0x0000000000000000     0x1ac0
+ .debug_info    0x0000000000000000      0xfe3 src/friends.c.8.o
+ .debug_info    0x0000000000000fe3      0x64c src/pay.c.8.o
+ .debug_info    0x000000000000162f      0x169 src/pebmo.c.8.o
+ .debug_info    0x0000000000001798      0x328 appinfo.auto.c.8.o
 
-.debug_abbrev   0x0000000000000000      0x5e7
- .debug_abbrev  0x0000000000000000      0x2ed src/feature_simple_menu_layer.c.8.o
- .debug_abbrev  0x00000000000002ed      0x24f src/pay.c.8.o
- .debug_abbrev  0x000000000000053c       0xab appinfo.auto.c.8.o
+.debug_abbrev   0x0000000000000000      0x66a
+ .debug_abbrev  0x0000000000000000      0x2a3 src/friends.c.8.o
+ .debug_abbrev  0x00000000000002a3      0x254 src/pay.c.8.o
+ .debug_abbrev  0x00000000000004f7       0xc8 src/pebmo.c.8.o
+ .debug_abbrev  0x00000000000005bf       0xab appinfo.auto.c.8.o
 
-.debug_loc      0x0000000000000000      0x34d
- .debug_loc     0x0000000000000000      0x296 src/feature_simple_menu_layer.c.8.o
- .debug_loc     0x0000000000000296       0xb7 src/pay.c.8.o
+.debug_loc      0x0000000000000000      0x379
+ .debug_loc     0x0000000000000000      0x296 src/friends.c.8.o
+ .debug_loc     0x0000000000000296       0xc3 src/pay.c.8.o
+ .debug_loc     0x0000000000000359       0x20 src/pebmo.c.8.o
 
-.debug_aranges  0x0000000000000000       0xb8
+.debug_aranges  0x0000000000000000       0xe0
  .debug_aranges
-                0x0000000000000000       0x60 src/feature_simple_menu_layer.c.8.o
+                0x0000000000000000       0x68 src/friends.c.8.o
  .debug_aranges
-                0x0000000000000060       0x40 src/pay.c.8.o
+                0x0000000000000068       0x40 src/pay.c.8.o
  .debug_aranges
-                0x00000000000000a0       0x18 appinfo.auto.c.8.o
+                0x00000000000000a8       0x20 src/pebmo.c.8.o
+ .debug_aranges
+                0x00000000000000c8       0x18 appinfo.auto.c.8.o
 
-.debug_ranges   0x0000000000000000       0x80
- .debug_ranges  0x0000000000000000       0x50 src/feature_simple_menu_layer.c.8.o
- .debug_ranges  0x0000000000000050       0x30 src/pay.c.8.o
+.debug_ranges   0x0000000000000000       0x98
+ .debug_ranges  0x0000000000000000       0x58 src/friends.c.8.o
+ .debug_ranges  0x0000000000000058       0x30 src/pay.c.8.o
+ .debug_ranges  0x0000000000000088       0x10 src/pebmo.c.8.o
 
-.debug_line     0x0000000000000000      0x4f6
- .debug_line    0x0000000000000000      0x24a src/feature_simple_menu_layer.c.8.o
- .debug_line    0x000000000000024a      0x192 src/pay.c.8.o
- .debug_line    0x00000000000003dc      0x11a appinfo.auto.c.8.o
+.debug_line     0x0000000000000000      0x661
+ .debug_line    0x0000000000000000      0x245 src/friends.c.8.o
+ .debug_line    0x0000000000000245      0x19d src/pay.c.8.o
+ .debug_line    0x00000000000003e2      0x165 src/pebmo.c.8.o
+ .debug_line    0x0000000000000547      0x11a appinfo.auto.c.8.o
 
-.debug_str      0x0000000000000000      0xb6d
- .debug_str     0x0000000000000000      0x8e7 src/feature_simple_menu_layer.c.8.o
-                                        0x9ab (size before relaxing)
- .debug_str     0x00000000000008e7      0x130 src/pay.c.8.o
-                                        0x33f (size before relaxing)
- .debug_str     0x0000000000000a17      0x156 appinfo.auto.c.8.o
+.debug_str      0x0000000000000000      0xbae
+ .debug_str     0x0000000000000000      0x8ea src/friends.c.8.o
+                                        0x9a9 (size before relaxing)
+ .debug_str     0x00000000000008ea      0x14b src/pay.c.8.o
+                                        0x3ce (size before relaxing)
+ .debug_str     0x0000000000000a35       0x23 src/pebmo.c.8.o
+                                        0x140 (size before relaxing)
+ .debug_str     0x0000000000000a58      0x156 appinfo.auto.c.8.o
                                         0x28f (size before relaxing)
 
-.debug_frame    0x0000000000000000      0x168
- .debug_frame   0x0000000000000000       0xec src/feature_simple_menu_layer.c.8.o
- .debug_frame   0x00000000000000ec       0x7c src/pay.c.8.o
+.debug_frame    0x0000000000000000      0x1a0
+ .debug_frame   0x0000000000000000       0xfc src/friends.c.8.o
+ .debug_frame   0x00000000000000fc       0x7c src/pay.c.8.o
+ .debug_frame   0x0000000000000178       0x28 src/pebmo.c.8.o
