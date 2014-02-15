@@ -28,8 +28,7 @@ static int hit_count = 0;
 
 enum {
     AKEY_NAME,
-    AKEY_NAME2,
-    AKEY_NAME3,
+    AKEY_TEXT,
 };
 
 
@@ -42,7 +41,7 @@ enum {
    // outgoing message failed
  }
 
-static void in_received_handler(DictionaryIterator *iter, void *context) {
+void in_received_handler(DictionaryIterator *iter, void *context) {
 
           // Check for fields you expect to receive
           Tuple *text_tuple = dict_find(iter, AKEY_NAME);
@@ -129,7 +128,7 @@ static void window_load(Window *window) {
 
   // Bind the menu items to the corresponding menu sections
   menu_sections[0] = (SimpleMenuSection){
-    .title = "Pay!",
+    .title = "          Pay Someone!",
     .num_items = NUM_FIRST_MENU_ITEMS,
     .items = first_menu_items,
   };
@@ -184,7 +183,7 @@ void window_unload(Window *window) {
    // create message to phone 
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
-    Tuplet value = TupletInteger(0, 15);
+    Tuplet value = TupletInteger(100, 15);
     dict_write_tuplet(iter, &value);
 
     // send message

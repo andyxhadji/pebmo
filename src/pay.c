@@ -1,6 +1,6 @@
 #include "pebble.h"
 #include "pay.h"
-
+#include "complete.h"
 static struct AmountUi {
   Window *window;
   TextLayer *name_text;
@@ -65,6 +65,23 @@ static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
 
 }
 
+static void select_click_handler(ClickRecognizerRef recognizer, void *context){
+
+   const uint32_t inbound_size = 64;
+   const uint32_t outbound_size = 64;
+   app_message_open(inbound_size, outbound_size);
+
+   // create message to phone 
+    DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
+    Tuplet value = TupletInteger(ui.index, ui.amount);
+    dict_write_tuplet(iter, &value);
+
+    // send message
+    app_message_outbox_send();
+    completedCharge();
+}
+
 
 static void click_config_provider(void *context) {
   const uint16_t repeat_interval_ms = 100;
@@ -73,6 +90,8 @@ static void click_config_provider(void *context) {
 
   window_set_click_context(BUTTON_ID_DOWN, context);
   window_single_repeating_click_subscribe(BUTTON_ID_DOWN, repeat_interval_ms, down_click_handler);
+
+  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
 
 }
 
