@@ -1,8 +1,0 @@
-argv = ['/Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/waf', 'configure', 'build']
-environ = {'USERNAME': 'root', 'SSH_AUTH_SOCK': '/tmp/launch-I6m8Kd/Listeners', 'VERSIONER_PYTHON_PREFER_32_BIT': 'no', 'SUDO_UID': '501', 'SUDO_GID': '20', 'LOGNAME': 'root', 'USER': 'root', 'PATH': '/Users/mike/pebble-dev/PebbleSDK-2.0.0/arm-cs-tools/bin:/Users/mike/pebble-dev/ENV/bin:/Users/mike/pebble-dev/PebbleSDK-2.0.0/bin:/Users/mike/pebble-dev/PebbleSDK-2.0.0/bin:/Users/mike/pebble-dev/PebbleSDK-2.0.0/bin:/Users/mike/pebble-dev/PebbleSDK-2.0.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin', 'HOME': '/Users/mike', 'DISPLAY': '/tmp/launch-B3XBwB/org.macosforge.xquartz:0', '_': '/Users/mike/pebble-dev/PebbleSDK-2.0.0/Pebble/waf', 'LANG': 'en_US.UTF-8', 'SUDO_COMMAND': '/Users/mike/pebble-dev/PebbleSDK-2.0.0/bin/pebble build', 'TERM': 'xterm', 'SHELL': '/bin/bash', 'COLORFGBG': '7;0', 'VERSIONER_PYTHON_VERSION': '2.7', 'SHLVL': '1', '__CF_USER_TEXT_ENCODING': '0x0:0:0', 'PWD': '/Users/mike/Desktop/pebmo2', 'MAIL': '/var/mail/root', 'SUDO_USER': 'mike'}
-files = ['/Users/mike/Desktop/pebmo2/wscript']
-hash = 4672844372416070989
-options = {'files': '', 'jobs': 4, 'verbose': 0, 'nocache': False, 'progress_bar': 0, 'timestamp': None, 'distcheck_args': None, 'top': '', 'destdir': '', 'keep': 0, 'zones': '', 'debug': False, 'prefix': '/usr/local/', 'download': False, 'force': False, 'targets': '', 'out': ''}
-out_dir = '/Users/mike/Desktop/pebmo2/build'
-run_dir = '/Users/mike/Desktop/pebmo2'
-top_dir = '/Users/mike/Desktop/pebmo2'
