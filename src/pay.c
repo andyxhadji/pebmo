@@ -5,6 +5,7 @@ static struct AmountUi {
   Window *window;
   TextLayer *name_text;
   TextLayer *amount_text;
+  int index;
 } ui;
 
 static void window_load(Window *window) {
@@ -18,7 +19,9 @@ static void window_load(Window *window) {
         .size = { bounds.size.w, 64 }
       });
 
-  text_layer_set_text(ui.name_text, "Parker");
+  static char buf[32];
+  snprintf(buf, 32, "%d", ui.index);
+  text_layer_set_text(ui.name_text, buf);
   text_layer_set_text_alignment(ui.name_text, GTextAlignmentCenter);
   text_layer_set_font(ui.name_text, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
   layer_add_child(window_layer, text_layer_get_layer(ui.name_text));
@@ -28,9 +31,12 @@ static void window_unload(Window *window) {
   text_layer_destroy(ui.name_text);
 }
 
-void pay_amount(void) {
+void pay_amount(int index) {
+
+  ui.index = index;
 
   const bool animated = true;
+
   window_stack_push(ui.window, animated);
 
 }
