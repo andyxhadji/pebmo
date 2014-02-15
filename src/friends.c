@@ -129,6 +129,7 @@ static void window_load(Window *window) {
 
   // Bind the menu items to the corresponding menu sections
   menu_sections[0] = (SimpleMenuSection){
+    .title = "Pay!",
     .num_items = NUM_FIRST_MENU_ITEMS,
     .items = first_menu_items,
   };
