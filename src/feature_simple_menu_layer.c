@@ -25,8 +25,7 @@ static bool special_flag = false;
 static int hit_count = 0;
 
 enum {
-    AKEY_NUMBER,
-    AKEY_TEXT,
+    AKEY_NAME = 0,
 };
 
 
@@ -38,11 +37,11 @@ enum {
  void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, void *context) {
    // outgoing message failed
  }
-/*
+
 static void in_received_handler(DictionaryIterator *iter, void *context) {
 
           // Check for fields you expect to receive
-          Tuple *text_tuple = dict_find(iter, AKEY_TEXT);
+          Tuple *text_tuple = dict_find(iter, AKEY_NAME);
 
           // Act on the found fields received
           if (text_tuple) {
@@ -51,18 +50,18 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
 
 }
 
-*/
+
  void in_dropped_handler(AppMessageResult reason, void *context) {
    // incoming message dropped
  }
 // You can capture when the user selects a menu icon with a menu item select callback
 static void menu_select_callback(int index, void *ctx) {
   // Here we just change the subtitle to a literal string
-  //first_menu_items[index].subtitle = "You've hit select here!";
+  first_menu_items[index].subtitle = "You've hit select here!";
   // Mark the layer to be updated
-  //layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
+  layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
   //payAmount(first_menu_items[index]);
-  pay_amount();
+  //pay_amount();
 }
 
 // You can specify special callbacks to differentiate functionality of a menu item
@@ -157,18 +156,47 @@ void window_unload(Window *window) {
   gbitmap_destroy(menu_icon_image);
 }
 
-int main(void) {
+ static void init(void) {
+
   window = window_create();
 
   // Setup the window handlers
   window_set_window_handlers(window, (WindowHandlers) {
     .load = window_load,
     .unload = window_unload,
-  });
+  });   
+
+   app_message_register_inbox_received(in_received_handler);
+   app_message_register_inbox_dropped(in_dropped_handler);
+   app_message_register_outbox_sent(out_sent_handler);
+   app_message_register_outbox_failed(out_failed_handler);
+   
+   const uint32_t inbound_size = 64;
+   const uint32_t outbound_size = 64;
+   app_message_open(inbound_size, outbound_size);
+
+   // create message to phone 
+    DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
+    Tuplet value = TupletInteger(0, 15);
+    dict_write_tuplet(iter, &value);
+
+    // send message
+    app_message_outbox_send();
+
+   
+ }
+
+int main(void) {
+
+  init();
+  pay_init();
 
   window_stack_push(window, true /* Animated */);
 
   app_event_loop();
 
   window_destroy(window);
+  pay_deinit();
+  return 0;
 }
