@@ -115,13 +115,15 @@ void post_data (void){
   // Although we already defined NUM_FIRST_MENU_ITEMS, you can define
   // an int as such to easily change the order of menu items later
   int num_a_items = 0;
-
+  if (text_tuple){
   // This is an example of how you'd set a simple menu item
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     // You should give each menu item a title and callback
     .title = text_tuple->value->cstring,
     .callback = menu_select_callback,
   };
+}
+if (text_tuple2){
   // The menu items appear in the order saved in the menu items array
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = text_tuple2->value->cstring,
@@ -129,6 +131,8 @@ void post_data (void){
     //.subtitle = "Here's a subtitle",
     .callback = menu_select_callback,
   };
+}
+if (text_tuple3){
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = text_tuple3->value->cstring,
     //.subtitle = "This has an icon",
@@ -136,6 +140,8 @@ void post_data (void){
     // This is how you would give a menu item an icon
     //.icon = menu_icon_image,
   };
+}
+if (text_tuple4){
     first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = text_tuple4->value->cstring,
     //.subtitle = "This has an icon",
@@ -143,6 +149,7 @@ void post_data (void){
     // This is how you would give a menu item an icon
     //.icon = menu_icon_image,
   };
+}
 /*
   // This initializes the second section
   second_menu_items[0] = (SimpleMenuItem){
