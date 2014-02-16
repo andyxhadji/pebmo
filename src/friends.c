@@ -3,7 +3,7 @@
 #include "pay.h"
 
 #define NUM_MENU_SECTIONS 2
-#define NUM_FIRST_MENU_ITEMS 4
+#define NUM_FIRST_MENU_ITEMS 7
 #define NUM_SECOND_MENU_ITEMS 1
 
 static Window *window;
@@ -31,12 +31,20 @@ enum {
     AKEY_NAME2,
     AKEY_NAME3,
     AKEY_NAME4,
+    AKEY_NAME5,
+    AKEY_NAME6,
+    AKEY_NAME7,
+
 };
 
 Tuple *text_tuple;
 Tuple *text_tuple2;
 Tuple *text_tuple3;
 Tuple *text_tuple4;
+Tuple *text_tuple5;
+Tuple *text_tuple6;
+Tuple *text_tuple7;
+static int ping_count = 0;
 
 
 static void out_sent_handler(DictionaryIterator *sent, void *context) {
@@ -50,26 +58,19 @@ static void out_failed_handler(DictionaryIterator *failed, AppMessageResult reas
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
 
-          // Check for fields you expect to receive
-          // first is usually (always?) me
           text_tuple = dict_find(iter, AKEY_NAME);
           text_tuple2 = dict_find(iter, AKEY_NAME2);
           text_tuple3 = dict_find(iter, AKEY_NAME3);
           text_tuple4 = dict_find(iter, AKEY_NAME4);
+          text_tuple5 = dict_find(iter, AKEY_NAME5);
+          text_tuple6 = dict_find(iter, AKEY_NAME6);
+          text_tuple7 = dict_find(iter, AKEY_NAME7);
 
-          /*
-          // Act on the found fields received
-          if (text_tuple) {
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple->value->cstring);
-          }
-            if (text_tuple2) {
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple2->value->cstring);
-          }   
-          if (text_tuple3) {
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "Text: %s", text_tuple3->value->cstring);
-          }
-          */
+
+
           post_data();
+        
+
 
 }
 
@@ -82,7 +83,7 @@ static void menu_select_callback(int index, void *ctx) {
   // Here we just change the subtitle to a literal string
   //first_menu_items[index].subtitle = "You've hit select here!";
   // Mark the layer to be updated
-  layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
+  //layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
   //payAmount(first_menu_items[index]);
   pay_amount(index);
 }
@@ -150,6 +151,33 @@ if (text_tuple4){
     //.icon = menu_icon_image,
   };
 }
+if (text_tuple5){
+    first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = text_tuple5->value->cstring,
+    //.subtitle = "This has an icon",
+    .callback = menu_select_callback,
+    // This is how you would give a menu item an icon
+    //.icon = menu_icon_image,
+  };
+}
+if (text_tuple6){
+    first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = text_tuple6->value->cstring,
+    //.subtitle = "This has an icon",
+    .callback = menu_select_callback,
+    // This is how you would give a menu item an icon
+    //.icon = menu_icon_image,
+  };
+}
+if (text_tuple7){
+    first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = text_tuple7->value->cstring,
+    //.subtitle = "This has an icon",
+    .callback = menu_select_callback,
+    // This is how you would give a menu item an icon
+    //.icon = menu_icon_image,
+  };
+}
 /*
   // This initializes the second section
   second_menu_items[0] = (SimpleMenuItem){
@@ -201,10 +229,29 @@ void window_unload(Window *window) {
 
   window = window_create();
 
-   app_message_register_inbox_received(in_received_handler);
+
+  // Setup the window handlers
+  window_set_window_handlers(window, (WindowHandlers) {
+    .load = window_load,
+    .unload = window_unload,
+  });   
+    //window_stack_push(window, true /* Animated */);
+    app_message_register_inbox_received(in_received_handler);
    app_message_register_inbox_dropped(in_dropped_handler);
    app_message_register_outbox_sent(out_sent_handler);
    app_message_register_outbox_failed(out_failed_handler);
+
+
+   
+ }
+
+ void friends_deinit(void) {
+    window_destroy(window);
+ }
+ 
+ void display_people(int index){
+    window_stack_push(window, true);
+
 
    const uint32_t inbound_size = 124;
    const uint32_t outbound_size = 64;
@@ -213,24 +260,19 @@ void window_unload(Window *window) {
    // create message to phone 
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
-    Tuplet value = TupletInteger(100, 15);
-    dict_write_tuplet(iter, &value);
+    //original
+    Tuplet value2 = TupletInteger(100, 15);
+
+    Tuplet value3 = TupletInteger(101, 15);
+    if (index){
+    dict_write_tuplet(iter, &value3);
+
+    } else {
+    dict_write_tuplet(iter, &value2);
+  }
+    
 
     // send message
     app_message_outbox_send();
-
-  // Setup the window handlers
-  window_set_window_handlers(window, (WindowHandlers) {
-    .load = window_load,
-    .unload = window_unload,
-  });   
-    window_stack_push(window, true /* Animated */);
-
-
-   
- }
-
- void friends_deinit(void) {
-    window_destroy(window);
  }
 
