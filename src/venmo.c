@@ -1,10 +1,10 @@
-#include "friends.h"
+#include "venmo.h"
 #include "pebble.h"
 #include "pay.h"
 
-#define NUM_MENU_SECTIONS 1
-#define NUM_FIRST_MENU_ITEMS 10
-#define NUM_SECOND_MENU_ITEMS 0
+#define NUM_MENU_SECTIONS 2
+#define NUM_FIRST_MENU_ITEMS 4
+#define NUM_SECOND_MENU_ITEMS 1
 
 static Window *window;
 
@@ -26,17 +26,19 @@ static bool special_flag = false;
 
 static int hit_count = 0;
 
-static int count;
-
-static int num_a_items = 0;
- 
-Tuple **names;
+enum {
+    AKEY_NAME,
+    AKEY_NAME2,
+    AKEY_NAME3,
+    AKEY_NAME4,
+};
 
 Tuple *text_tuple;
-
+Tuple *text_tuple2;
+Tuple *text_tuple3;
+Tuple *text_tuple4;
 static int ping_count = 0;
 
-static int name_count = 0;
 
 static void out_sent_handler(DictionaryIterator *sent, void *context) {
    // outgoing message was delivered
@@ -48,28 +50,19 @@ static void out_failed_handler(DictionaryIterator *failed, AppMessageResult reas
  }
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
-         /* DictionaryIterator *counter = iter;
-          Tuple *tuple;
-          int count = 0;
-          for (int x = 0; dict_find(iter, x); x++){
-            tuple = dict_find(counter, x);
-            count++;
-          }*/
-          if (!names[0]){
-              text_tuple = dict_find(iter, 0);
-              count = 0;
-                for (int y = 0; y < *text_tuple->value->data; y++){
-                  count++;
-                }
-               names = malloc(sizeof(Tuple *)*count);
-            } else {
-              text_tuple = dict_find(iter, 0);
-              names[name_count] = text_tuple;
-              name_count++;
-            }
-          post_data();
+
+          text_tuple = dict_find(iter, AKEY_NAME);
+          text_tuple2 = dict_find(iter, AKEY_NAME2);
+          text_tuple3 = dict_find(iter, AKEY_NAME3);
+          text_tuple4 = dict_find(iter, AKEY_NAME4);
+
+          venmo_data();
         
 
+
+}
+void window_load(Window *window) {
+  // We'll have to load the icon before we can use it
 
 }
 
@@ -109,25 +102,54 @@ static void special_select_callback(int index, void *ctx) {
   layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
 }
 
-void post_data (void){
+void venmo_data (void){
     menu_icon_image = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MENU_ICON_1);
 
   // Although we already defined NUM_FIRST_MENU_ITEMS, you can define
   // an int as such to easily change the order of menu items later
-//  int num_a_items = 0;
-  for (int x = 1; x < name_count; x++) {
-      first_menu_items[num_a_items++] = (SimpleMenuItem){
-    // You should give each menu item a title and callback
-    .title = names[x]->value->cstring,
-    .callback = menu_select_callback,
-    };
-  }
-  /*
-    first_menu_items[num_a_items++] = (SimpleMenuItem){
+  int num_a_items = 0;
+  if (text_tuple){
+  // This is an example of how you'd set a simple menu item
+  first_menu_items[num_a_items++] = (SimpleMenuItem){
     // You should give each menu item a title and callback
     .title = text_tuple->value->cstring,
     .callback = menu_select_callback,
-    };
+  };
+}
+if (text_tuple2){
+  // The menu items appear in the order saved in the menu items array
+  first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = text_tuple2->value->cstring,
+    // You can also give menu items a subtitle
+    //.subtitle = "Here's a subtitle",
+    .callback = menu_select_callback,
+  };
+}
+if (text_tuple3){
+  first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = text_tuple3->value->cstring,
+    //.subtitle = "This has an icon",
+    .callback = menu_select_callback,
+    // This is how you would give a menu item an icon
+    //.icon = menu_icon_image,
+  };
+}
+if (text_tuple4){
+    first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = text_tuple4->value->cstring,
+    //.subtitle = "This has an icon",
+    .callback = menu_select_callback,
+    // This is how you would give a menu item an icon
+    //.icon = menu_icon_image,
+  };
+}
+/*
+  // This initializes the second section
+  second_menu_items[0] = (SimpleMenuItem){
+    .title = "Special Item",
+    // You can use different callbacks for your menu items
+    .callback = special_select_callback,
+  };
 */
   // Bind the menu items to the corresponding menu sections
   menu_sections[0] = (SimpleMenuSection){
@@ -135,6 +157,12 @@ void post_data (void){
     .num_items = NUM_FIRST_MENU_ITEMS,
     .items = first_menu_items,
   };
+  /*menu_sections[1] = (SimpleMenuSection){
+    // Menu sections can also have titles as well
+    .title = "Yet Another Section",
+    .num_items = NUM_SECOND_MENU_ITEMS,
+    .items = second_menu_items,
+  };*/
 
   // Now we prepare to initialize the simple menu layer
   // We need the bounds to specify the simple menu layer's viewport size
@@ -149,23 +177,9 @@ void post_data (void){
   layer_add_child(window_layer, simple_menu_layer_get_layer(simple_menu_layer));
 }
 // This initializes the menu upon window load
-static void window_load(Window *window) {
-  // We'll have to load the icon before we can use it
 
-}
 
-// Deinitialize resources on window unload that were initialized on window load
-void window_unload(Window *window) {
-  simple_menu_layer_destroy(simple_menu_layer);
-
-  // Cleanup the menu icon
-  gbitmap_destroy(menu_icon_image);
-  free(names);
-
-}
-
- void friends_init(void) {
-
+ void venmo_init(void) {
 
   window = window_create();
 
@@ -185,31 +199,30 @@ void window_unload(Window *window) {
    
  }
 
- void friends_deinit(void) {
+ void venmo_deinit(void) {
     window_destroy(window);
  }
- 
- void display_people(int index){
+
+ /*void window_unload(Window *window) {
+  simple_menu_layer_destroy(simple_menu_layer);
+
+  // Cleanup the menu icon
+  gbitmap_destroy(menu_icon_image);
+}*/
+ void display_venmo(int index){
     window_stack_push(window, true);
 
 
-   const uint32_t inbound_size = 300;
+   const uint32_t inbound_size = 124;
    const uint32_t outbound_size = 64;
    app_message_open(inbound_size, outbound_size);
 
    // create message to phone 
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
-    //original
-    Tuplet value2 = TupletInteger(100, 15);
-
-    Tuplet value3 = TupletInteger(101, 15);
-    if (index){
-    dict_write_tuplet(iter, &value3);
-
-    } else {
+    
+    Tuplet value2 = TupletInteger(101, 15);
     dict_write_tuplet(iter, &value2);
-  }
     
 
     // send message
