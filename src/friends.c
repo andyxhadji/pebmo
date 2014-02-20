@@ -62,10 +62,11 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
                   APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "counting arr");
 
               }  
+               APP_LOG(APP_LOG_LEVEL_DEBUG, "%d", count);
+
              names = malloc(sizeof(Tuple *)*(count));
 
           int x; 
-          count = 5;                               
           for (x = 0; x < count; x++){
 
             tuple = dict_find(iter, (x+1));
