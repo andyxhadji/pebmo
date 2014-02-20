@@ -26,7 +26,7 @@ static bool special_flag = false;
 
 static int hit_count = 0;
 
-static int count;
+static int count = 0;
 
 static int num_a_items = 0;
  
@@ -48,25 +48,39 @@ static void out_failed_handler(DictionaryIterator *failed, AppMessageResult reas
  }
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
-         /* DictionaryIterator *counter = iter;
-          Tuple *tuple;
-          int count = 0;
-          for (int x = 0; dict_find(iter, x); x++){
-            tuple = dict_find(counter, x);
-            count++;
-          }*/
-          if (!names[0]){
-              text_tuple = dict_find(iter, 0);
-              count = 0;
-                for (int y = 0; y < *text_tuple->value->data; y++){
-                  count++;
-                }
-               names = malloc(sizeof(Tuple *)*count);
-            } else {
-              text_tuple = dict_find(iter, 0);
-              names[name_count] = text_tuple;
-              name_count++;
+
+            Tuple *tuple = dict_find(iter, 0);
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "pre\n");
+
+           uint8_t *length = tuple->value->data;
+            APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "post\n");
+
+                              //APP_LOG(APP_LOG_LEVEL_DEBUG, "%d", length);
+           uint8_t increment = 1;
+            for(uint8_t t = 0; t < *length; t = t + increment){
+                count++;
+                  APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "counting arr");
+
+              }  
+             names = malloc(sizeof(Tuple *)*(count));
+
+          int x; 
+          count = 5;                               
+          for (x = 0; x < count; x++){
+
+            tuple = dict_find(iter, (x+1));
+
+      //      if (x == 0){
+              //names = malloc(sizeof(Tuple *)*count);
+       //     } else {
+              //names[x] = malloc(sizeof(char)*(*tuple->value->cstring).length);
+              names[x] = tuple;
+              APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", names[x]->value->cstring);
+              //APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "test");
+
             }
+          
+
           post_data();
         
 
@@ -79,11 +93,7 @@ static void in_dropped_handler(AppMessageResult reason, void *context) {
  }
 // You can capture when the user selects a menu icon with a menu item select callback
 static void menu_select_callback(int index, void *ctx) {
-  // Here we just change the subtitle to a literal string
-  //first_menu_items[index].subtitle = "You've hit select here!";
-  // Mark the layer to be updated
-  //layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
-  //payAmount(first_menu_items[index]);
+
   pay_amount(index);
 }
 
@@ -115,8 +125,8 @@ void post_data (void){
   // Although we already defined NUM_FIRST_MENU_ITEMS, you can define
   // an int as such to easily change the order of menu items later
 //  int num_a_items = 0;
-  for (int x = 1; x < name_count; x++) {
-      first_menu_items[num_a_items++] = (SimpleMenuItem){
+  for (int x = 0; x < count; x++) {
+      first_menu_items[x] = (SimpleMenuItem){
     // You should give each menu item a title and callback
     .title = names[x]->value->cstring,
     .callback = menu_select_callback,
@@ -193,7 +203,7 @@ void window_unload(Window *window) {
     window_stack_push(window, true);
 
 
-   const uint32_t inbound_size = 300;
+   const uint32_t inbound_size = 124;
    const uint32_t outbound_size = 64;
    app_message_open(inbound_size, outbound_size);
 
@@ -201,18 +211,18 @@ void window_unload(Window *window) {
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
     //original
-    Tuplet value2 = TupletInteger(100, 15);
+    Tuplet value = TupletInteger(100, 15);
 
-    Tuplet value3 = TupletInteger(101, 15);
-    if (index){
-    dict_write_tuplet(iter, &value3);
+    //Tuplet value3 = TupletInteger(101, 15);
+    //if (index){
+    //dict_write_tuplet(iter, &value3);
 
-    } else {
-    dict_write_tuplet(iter, &value2);
-  }
+    //} else {
+    dict_write_tuplet(iter, &value);
+ // }
     
-
-    // send message
     app_message_outbox_send();
+
+  
  }
 
