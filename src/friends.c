@@ -59,8 +59,6 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
            uint8_t increment = 1;
             for(uint8_t t = 0; t < *length; t = t + increment){
                 count++;
-                  APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "counting arr");
-
               }  
                APP_LOG(APP_LOG_LEVEL_DEBUG, "%d", count);
 
@@ -76,7 +74,7 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
        //     } else {
               //names[x] = malloc(sizeof(char)*(*tuple->value->cstring).length);
               names[x] = tuple;
-              APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", names[x]->value->cstring);
+             // APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", names[x]->value->cstring);
               //APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "test");
 
             }
@@ -204,7 +202,7 @@ void window_unload(Window *window) {
     window_stack_push(window, true);
 
 
-   const uint32_t inbound_size = 124;
+   const uint32_t inbound_size = 1240;
    const uint32_t outbound_size = 64;
    app_message_open(inbound_size, outbound_size);
 

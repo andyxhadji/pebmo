@@ -17,8 +17,8 @@ Pebble.addEventListener("appmessage",
         var response = JSON.parse(req.responseText);
         //create and send json
         json = {};
-        json[0] = 5;
-        for(var i = 1; i < 6; i++) {
+        json[0] = 10;
+        for(var i = 1; i < 11; i++) {
   			json[i] = response.data[i].display_name;
 		}
         Pebble.sendAppMessage(json);
