@@ -3,7 +3,7 @@
 #include "pay.h"
 
 #define NUM_MENU_SECTIONS 1
-#define NUM_FIRST_MENU_ITEMS 10
+#define NUM_FIRST_MENU_ITEMS 40
 #define NUM_SECOND_MENU_ITEMS 0
 
 static Window *window;
@@ -50,10 +50,8 @@ static void out_failed_handler(DictionaryIterator *failed, AppMessageResult reas
 static void in_received_handler(DictionaryIterator *iter, void *context) {
 
             Tuple *tuple = dict_find(iter, 0);
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "pre\n");
 
            uint8_t *length = tuple->value->data;
-            APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "post\n");
 
                               //APP_LOG(APP_LOG_LEVEL_DEBUG, "%d", length);
            uint8_t increment = 1;
@@ -202,7 +200,7 @@ void window_unload(Window *window) {
     window_stack_push(window, true);
 
 
-   const uint32_t inbound_size = 1240;
+   const uint32_t inbound_size = 22400;
    const uint32_t outbound_size = 64;
    app_message_open(inbound_size, outbound_size);
 
