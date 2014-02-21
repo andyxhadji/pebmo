@@ -1,3 +1,14 @@
+Pebble.addEventListener("showConfiguration",
+	function(e) {
+		Pebble.openURL();
+		window.location.href = "pebblejs://close#" + encodeURIComponent(JSON.stringify(configuration));
+	});
+Pebble.addEventListener("webviewclosed",
+	function(e){
+		var configuration = JSON.parse(decodeURIComponent(e.response));
+		console.log("Configuration window returned: ", JSON.stringify(configuration));
+	})
+
 Pebble.addEventListener("ready",
 	function(e) {
 		console.log("Javascript app ready");
