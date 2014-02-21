@@ -16,12 +16,24 @@ Pebble.addEventListener("appmessage",
       if(req.status == 200) {
         var response = JSON.parse(req.responseText);
         //create and send json
-        json = {};
+        /*json = {};
         json[0] = 40;
-        for(var i = 1; i < 41; i++) {
+        for(var i = 1; i < json[0]+1; i++) {
   			json[i] = response.data[i].display_name;
+		}*/
+		var length = 40;
+		json_array = [];
+		for(var j = 0; j < length; j++) {
+			json_array.push(response.data[j].display_name);
 		}
-        Pebble.sendAppMessage(json);
+		json_array.sort();
+		json_final = {};
+        json_final[0] = length;
+        for(var k = 1; k < length+1; k++) {
+  			json_final[k] = json_array[k-1];
+		}
+
+        Pebble.sendAppMessage(json_final);
       } else { console.log("Error"); }
     }
   }
