@@ -74,11 +74,18 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context){
    // create message to phone 
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
-    Tuplet value = TupletInteger(ui.index, ui.amount);
+    Tuplet value = TupletInteger(200, ui.index);
+     Tuplet value2 = TupletInteger(300, ui.amount);
+
+
     dict_write_tuplet(iter, &value);
+        dict_write_tuplet(iter, &value2);
+
 
     // send message
     app_message_outbox_send();
+
+
     completedCharge();
 }
 
