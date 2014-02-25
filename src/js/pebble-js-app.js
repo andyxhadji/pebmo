@@ -1,11 +1,11 @@
 Pebble.addEventListener("showConfiguration",
 	function(e) {
-		Pebble.openURL("https://api.venmo.com/v1/oauth/authorize?client_id=1615&scope=make_payments,access_friends");
-		window.location.href = "pebblejs://close#" + encodeURIComponent(JSON.stringify(configuration));
+		Pebble.openURL("https://api.venmo.com/v1/oauth/authorize?client_id=1615&scope=make_payments,access_friends&response_type=code");
+		//window.location.href = "pebblejs://close#" + encodeURIComponent(JSON.stringify(configuration));
 	});
 Pebble.addEventListener("webviewclosed",
 	function(e){
-		//console.log(e.payload);
+		console.log(e.response);
 		var configuration = JSON.parse(decodeURIComponent(e.response));
 		console.log("Configuration window returned: ", JSON.stringify(configuration));
 	});
