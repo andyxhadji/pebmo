@@ -6,6 +6,7 @@ Pebble.addEventListener("showConfiguration",
 Pebble.addEventListener("webviewclosed",
 	function(e){
 		console.log(e.response);
+		window.localStorage.setItem(0, e.response);
 		var configuration = JSON.parse(decodeURIComponent(e.response));
 		console.log("Configuration window returned: ", JSON.stringify(configuration));
 	});
@@ -47,6 +48,7 @@ Pebble.addEventListener("appmessage",
 		  }
 		  req.send(null);
 		} else if(e.payload["200"]) {
+			console.log(window.localStorage.getItem(0));
 			var index = e.payload["200"];
 			var name = json_final[index+1];
 			id = id_array[index];
