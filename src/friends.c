@@ -67,13 +67,8 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
 
             tuple = dict_find(iter, (x+1));
 
-      //      if (x == 0){
-              //names = malloc(sizeof(Tuple *)*count);
-       //     } else {
-              //names[x] = malloc(sizeof(char)*(*tuple->value->cstring).length);
               names[x] = tuple;
-             // APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", names[x]->value->cstring);
-              //APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "test");
+
 
             }
           
@@ -94,34 +89,9 @@ static void menu_select_callback(int index, void *ctx) {
   pay_amount(index);
 }
 
-// You can specify special callbacks to differentiate functionality of a menu item
-static void special_select_callback(int index, void *ctx) {
-  // Of course, you can do more complicated things in a menu item select callback
-  // Here, we have a simple toggle
-  special_flag = !special_flag;
-
-  SimpleMenuItem *menu_item = &second_menu_items[index];
-
-  if (special_flag) {
-    menu_item->subtitle = "Okay, it's not so special.";
-  } else {
-    menu_item->subtitle = "Well, maybe a little.";
-  }
-
-  if (++hit_count > 5) {
-    menu_item->title = "Very Special Item";
-  }
-
-  // Mark the layer to be updated
-  layer_mark_dirty(simple_menu_layer_get_layer(simple_menu_layer));
-}
-
 void post_data (void){
     menu_icon_image = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_MENU_ICON_1);
 
-  // Although we already defined NUM_FIRST_MENU_ITEMS, you can define
-  // an int as such to easily change the order of menu items later
-//  int num_a_items = 0;
   for (int x = 0; x < count; x++) {
       first_menu_items[x] = (SimpleMenuItem){
     // You should give each menu item a title and callback
@@ -129,13 +99,7 @@ void post_data (void){
     .callback = menu_select_callback,
     };
   }
-  /*
-    first_menu_items[num_a_items++] = (SimpleMenuItem){
-    // You should give each menu item a title and callback
-    .title = text_tuple->value->cstring,
-    .callback = menu_select_callback,
-    };
-*/
+
   // Bind the menu items to the corresponding menu sections
   menu_sections[0] = (SimpleMenuSection){
     .title = "          Pay Someone!",
@@ -210,13 +174,7 @@ void window_unload(Window *window) {
     //original
     Tuplet value = TupletInteger(100, 15);
 
-    //Tuplet value3 = TupletInteger(101, 15);
-    //if (index){
-    //dict_write_tuplet(iter, &value3);
-
-    //} else {
     dict_write_tuplet(iter, &value);
- // }
     
     app_message_outbox_send();
 

@@ -36,12 +36,13 @@ void groups (void){
   };
 
   // The menu items appear in the order saved in the menu items array
-  first_menu_items[num_a_items++] = (SimpleMenuItem){
+ /* first_menu_items[num_a_items++] = (SimpleMenuItem){
     .title = "Check In Friends",
     // You can also give menu items a subtitle
     //.subtitle = "Here's a subtitle",
     .callback = menu_select_callback,
   };
+  */
 
   // Bind the menu items to the corresponding menu sections
   menu_sections[0] = (SimpleMenuSection){

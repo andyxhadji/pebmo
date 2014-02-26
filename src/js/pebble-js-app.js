@@ -7,8 +7,8 @@ Pebble.addEventListener("webviewclosed",
 	function(e){
 		console.log(e.response);
 		window.localStorage.setItem(0, e.response);
-		var configuration = JSON.parse(decodeURIComponent(e.response));
-		console.log("Configuration window returned: ", JSON.stringify(configuration));
+		//var configuration = JSON.parse(decodeURIComponent(e.response));
+		//console.log("Configuration window returned: ", JSON.stringify(configuration));
 	});
 
 Pebble.addEventListener("ready",
@@ -19,8 +19,10 @@ Pebble.addEventListener("ready",
 var response = {};
 var json_final = {};
 var id_array = [];
+var old_json = [];
 var id;
 var amount;
+
 Pebble.addEventListener("appmessage",
 	function(e) {
 		if (e.payload["100"]){
@@ -34,6 +36,7 @@ Pebble.addEventListener("appmessage",
 				json_array = [];
 				for(var j = 0; j < length; j++) {
 					json_array.push(response.data[j].display_name);
+					old_json.push(response.data[j].display_name);
 					id_array.push(response.data[j].id);
 				}
 				json_array.sort();
@@ -51,10 +54,33 @@ Pebble.addEventListener("appmessage",
 			console.log(window.localStorage.getItem(0));
 			var index = e.payload["200"];
 			var name = json_final[index+1];
-			id = id_array[index];
+			var id_index;
+			for(var y = 0; y < old_json.length; y++){
+				if (name == old_json[y]){
+					id_index = y;
+					break;
+				}
+			}
+			id = id_array[id_index];
 			amount = e.payload["300"];
 			console.log(name);
 			console.log(id);
+			var url = "https://api.venmo.com/v1/payments";
+			var params = "access_token=" + window.localStorage.getItem(0) + "&user_id=" + id + "&note=-Pebmo&amount=" + amount;
+			console.log(params);
+			var http = new XMLHttpRequest();
+			http.open("POST", url, true);
+			//Send the proper header information along with the request
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			http.setRequestHeader("Content-length", params.length);
+			http.setRequestHeader("Connection", "close");
+
+			http.onreadystatechange = function() {//Call a function when the state changes.
+			    if(http.readyState == 4 && http.status == 200) {
+			        alert(http.responseText);
+			    }
+			}
+			http.send(params);
 		}
 		
 
