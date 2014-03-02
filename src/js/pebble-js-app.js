@@ -12,22 +12,11 @@ Pebble.addEventListener("webviewclosed",
 		//var configuration = JSON.parse(decodeURIComponent(e.response));
 		//console.log("Configuration window returned: ", JSON.stringify(configuration));
 	});
+var json_final = {};
 
 Pebble.addEventListener("ready",
 	function(e) {
 		console.log("Javascript app ready");
-	});
-
-var response = {};
-var json_final = {};
-var id_array = [];
-var old_json = [];
-var id;
-var amount;
-
-Pebble.addEventListener("appmessage",
-	function(e) {
-		if (e.payload["100"]){
 		 var req = new XMLHttpRequest();
 		  req.open('GET', 'https://api.venmo.com/v1/users/' + window.localStorage.getItem(1) + '/friends?access_token=' + window.localStorage.getItem(0) + '&limit=200', true);
 		  req.onload = function(e) {
@@ -47,11 +36,23 @@ Pebble.addEventListener("appmessage",
 		  			json_final[k] = json_array[k-1];
 				}
 
-		        Pebble.sendAppMessage(json_final);
 		      } else { console.log("Error"); }
 		    }
 		  }
 		  req.send(null);
+	});
+
+var response = {};
+var id_array = [];
+var old_json = [];
+var id;
+var amount;
+
+Pebble.addEventListener("appmessage",
+	function(e) {
+		if (e.payload["100"]){
+			Pebble.sendAppMessage(json_final);
+
 		} else if(e.payload["200"]) {
 			console.log(window.localStorage.getItem(0));
 			var index = e.payload["200"];
