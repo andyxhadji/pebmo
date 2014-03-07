@@ -13,6 +13,11 @@ Pebble.addEventListener("webviewclosed",
 		//console.log("Configuration window returned: ", JSON.stringify(configuration));
 	});
 var json_final = {};
+var response = {};
+var id_array = [];
+var old_json = [];
+var id;
+var amount;
 
 Pebble.addEventListener("ready",
 	function(e) {
@@ -30,7 +35,11 @@ Pebble.addEventListener("ready",
 					old_json.push(response.data[j].display_name);
 					id_array.push(response.data[j].id);
 				}
+
 				json_array.sort();
+
+				// arbitrary length for test purposes vvv
+					length = 90;
 		        json_final[0] = length;
 		        for(var k = 1; k < length+1; k++) {
 		  			json_final[k] = json_array[k-1];
@@ -42,11 +51,7 @@ Pebble.addEventListener("ready",
 		  req.send(null);
 	});
 
-var response = {};
-var id_array = [];
-var old_json = [];
-var id;
-var amount;
+
 
 Pebble.addEventListener("appmessage",
 	function(e) {
@@ -54,6 +59,7 @@ Pebble.addEventListener("appmessage",
 			Pebble.sendAppMessage(json_final);
 
 		} else if(e.payload["200"]) {
+			console.log("test200");
 			console.log(window.localStorage.getItem(0));
 			var index = e.payload["200"];
 			var name = json_final[index+1];
@@ -85,9 +91,8 @@ Pebble.addEventListener("appmessage",
 			}
 			http.send(params);
 		}
-		
+
 
 	}
-	
-);
 
+);

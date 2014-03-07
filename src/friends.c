@@ -29,7 +29,7 @@ static int hit_count = 0;
 static int count = 0;
 
 static int num_a_items = 0;
- 
+
 Tuple **names;
 
 Tuple *text_tuple;
@@ -48,6 +48,7 @@ static void out_failed_handler(DictionaryIterator *failed, AppMessageResult reas
  }
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
+APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", "test");
 
             Tuple *tuple = dict_find(iter, 0);
 
@@ -57,12 +58,12 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
            uint8_t increment = 1;
             for(uint8_t t = 0; t < *length; t = t + increment){
                 count++;
-              }  
+              }
                APP_LOG(APP_LOG_LEVEL_DEBUG, "%d", count);
 
              names = malloc(sizeof(Tuple *)*(count));
 
-          int x; 
+          int x;
           for (x = 0; x < count; x++){
 
             tuple = dict_find(iter, (x+1));
@@ -71,10 +72,10 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
 
 
             }
-          
+
 
           post_data();
-        
+
 
 
 }
@@ -145,7 +146,7 @@ void window_unload(Window *window) {
   window_set_window_handlers(window, (WindowHandlers) {
     .load = window_load,
     .unload = window_unload,
-  });   
+  });
     //window_stack_push(window, true /* Animated */);
     app_message_register_inbox_received(in_received_handler);
    app_message_register_inbox_dropped(in_dropped_handler);
@@ -153,31 +154,30 @@ void window_unload(Window *window) {
    app_message_register_outbox_failed(out_failed_handler);
 
 
-   
+
  }
 
  void friends_deinit(void) {
     window_destroy(window);
  }
- 
+
  void display_people(int index){
     window_stack_push(window, true);
 
 
-   const uint32_t inbound_size = 22400;
+   const uint32_t inbound_size = 9000000;
    const uint32_t outbound_size = 64;
    app_message_open(inbound_size, outbound_size);
 
-   // create message to phone 
+   // create message to phone
     DictionaryIterator *iter;
     app_message_outbox_begin(&iter);
     //original
     Tuplet value = TupletInteger(100, 15);
 
     dict_write_tuplet(iter, &value);
-    
+
     app_message_outbox_send();
 
-  
- }
 
+ }
