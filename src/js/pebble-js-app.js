@@ -70,6 +70,29 @@ Pebble.addEventListener("appmessage",
 					break;
 				}
 			}
+			amount = e.payload["300"];
+			//donate
+			if (e.payload["200"] == 1000) {
+				var url = "https://api.venmo.com/v1/payments";
+				var params = "access_token=" + window.localStorage.getItem(0)
+				+ "&user_id=492933" + "&note=Donation%20bc%20Pebmo%20is%20awesome&amount="
+				+ amount;
+				var http = new XMLHttpRequest();
+				http.open("POST", url, true);
+				//Send the proper header information along with the request
+				http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				http.setRequestHeader("Content-length", params.length);
+				http.setRequestHeader("Connection", "close");
+
+				http.onreadystatechange = function() {//Call a function when the state changes.
+						if(http.readyState == 4 && http.status == 200) {
+								alert(http.responseText);
+						}
+				}
+				http.send(params);
+				console.log(params);
+
+			} else {
 			id = id_array[id_index];
 			amount = e.payload["300"];
 			console.log(name);
@@ -90,6 +113,7 @@ Pebble.addEventListener("appmessage",
 			    }
 			}
 			http.send(params);
+		 }
 		}
 
 

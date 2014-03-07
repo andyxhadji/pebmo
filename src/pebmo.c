@@ -4,10 +4,12 @@
 #include "complete.h"
 #include "choose.h"
 #include "venmo.h"
+#include "about.h"
 
 static void init(void) {
   choose_init();
   venmo_init();
+  about_init();
   friends_init();
   pay_init();
   complete_init();
@@ -15,7 +17,8 @@ static void init(void) {
 
 static void deinit(void) {
   choose_deinit();
-  venmo_init();
+  venmo_deinit();
+  about_deinit();
   friends_deinit();
   pay_deinit();
   complete_deinit();

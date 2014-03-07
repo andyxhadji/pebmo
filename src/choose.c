@@ -1,6 +1,7 @@
 #include "pebble.h"
 #include "choose.h"
 #include "friends.h"
+#include "about.h"
 
 #define NUM_MENU_SECTIONS 2
 #define NUM_FIRST_MENU_ITEMS 4
@@ -27,22 +28,22 @@ void groups (void){
   // Although we already defined NUM_FIRST_MENU_ITEMS, you can define
   // an int as such to easily change the order of menu items later
   int num_a_items = 0;
- 
+
   // This is an example of how you'd set a simple menu item
   first_menu_items[num_a_items++] = (SimpleMenuItem){
     // You should give each menu item a title and callback
-    .title = "Venmo Friends",
+    .title = "Venmo",
     .callback = menu_select_callback,
   };
 
   // The menu items appear in the order saved in the menu items array
- /* first_menu_items[num_a_items++] = (SimpleMenuItem){
-    .title = "Check In Friends",
+  first_menu_items[num_a_items++] = (SimpleMenuItem){
+    .title = "About",
     // You can also give menu items a subtitle
     //.subtitle = "Here's a subtitle",
-    .callback = menu_select_callback,
+    .callback = about_callback,
   };
-  */
+
 
   // Bind the menu items to the corresponding menu sections
   menu_sections[0] = (SimpleMenuSection){
@@ -63,6 +64,10 @@ void groups (void){
 
   // Add it to the window for display
   layer_add_child(window_layer, simple_menu_layer_get_layer(simple_menu_layer));
+}
+
+static void about_callback(int index, void *ctx){
+  display_about();
 }
 
 static void menu_select_callback(int index, void *ctx) {
@@ -91,7 +96,7 @@ static void window_unload(Window *window){
   window_set_window_handlers(window, (WindowHandlers) {
     .load = window_load,
     .unload = window_unload,
-  });   
+  });
     window_stack_push(window, true /* Animated */);
 
  }
